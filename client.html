@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乡见 - 客户端</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.544.0/dist/umd/lucide.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --accent-color: #FFC107;
+            --dark-green: #388E3C;
+            --light-green: #E8F5E9;
+        }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            scroll-behavior: smooth;
+            background: url('https://p3-doubao-search-sign.byteimg.com/labis/1a6ca2740ca2cdd9467e52134819f889~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792130152&x-signature=UBSix%2FWq15Aa0CccJtrdmtsLFjI%3D') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .navbar {
+            background: linear-gradient(90deg, var(--dark-green), var(--primary-color));
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .product-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .category-card {
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        .category-card:hover {
+            transform: scale(1.05);
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="navbar text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="text-2xl font-bold flex items-center">
+                    <i data-lucide="leaf" class="mr-2"></i> 乡见
+                </a>
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#" class="hover:text-accent-color transition flex items-center">
+                        <i data-lucide="search" class="mr-1"></i> 搜索
+                    </a>
+                    <a href="#" class="hover:text-accent-color transition flex items-center relative">
+                        <i data-lucide="shopping-cart" class="mr-1"></i> 购物车
+                        <span class="absolute -top-2 -right-2 bg-accent-color text-dark-green text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                    </a>
+                    <a href="#" class="hover:text-accent-color transition flex items-center">
+                        <i data-lucide="user" class="mr-1"></i> 我的
+                    </a>
+                </div>
+                <button class="md:hidden text-white focus:outline-none">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 animate-on-scroll">新鲜农产品，从田间到餐桌</h1>
+            <p class="text-gray-600 animate-on-scroll" style="transition-delay: 0.2s;">直接从农户手中购买，确保最新鲜的品质</p>
+            <div class="mt-8 max-w-md mx-auto relative animate-on-scroll" style="transition-delay: 0.4s;">
+                <input type="text" placeholder="搜索你想要的农产品..." class="w-full py-3 px-5 pr-12 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-color">
+                <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary-color">
+                    <i data-lucide="search"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Categories -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 text-center text-gray-800 animate-on-scroll">产品分类</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="animate-on-scroll" style="transition-delay: 0.1s;">
+                    <a href="#" class="flex flex-col items-center">
+                        <div class="category-card h-32 w-32 mb-4 shadow-md">
+                            <img src="https://p26-doubao-search-sign.byteimg.com/labis/f7e5ce550ce2f3429acdbf040be822cd~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=MdDEd4XMJnimT%2B1uojA6HfJ5eO8%3D" alt="蔬菜" class="h-full w-full object-cover">
+                        </div>
+                        <p class="font-medium text-gray-700">蔬菜</p>
+                    </a>
+                </div>
+                <div class="animate-on-scroll" style="transition-delay: 0.2s;">
+                    <a href="#" class="flex flex-col items-center">
+                        <div class="category-card h-32 w-32 mb-4 shadow-md">
+                            <img src="https://p11-doubao-search-sign.byteimg.com/labis/b9c66c69b8233518b55770ac5b45ffb2~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=WFYPnLiW%2FtT2CIeZzqRoeFuYoJo%3D" alt="水果" class="h-full w-full object-cover">
+                        </div>
+                        <p class="font-medium text-gray-700">水果</p>
+                    </a>
+                </div>
+                <div class="animate-on-scroll" style="transition-delay: 0.3s;">
+                    <a href="#" class="flex flex-col items-center">
+                        <div class="category-card h-32 w-32 mb-4 shadow-md">
+                            <img src="https://p26-doubao-search-sign.byteimg.com/labis/2847f40fb2681d7443c1ce93926e1593~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=F8OaLnF%2F%2Br6MPos6utDluLsfcF8%3D" alt="肉禽蛋" class="h-full w-full object-cover">
+                        </div>
+                        <p class="font-medium text-gray-700">肉禽蛋</p>
+                    </a>
+                </div>
+                <div class="animate-on-scroll" style="transition-delay: 0.4s;">
+                    <a href="#" class="flex flex-col items-center">
+                        <div class="category-card h-32 w-32 mb-4 shadow-md">
+                            <img src="https://p11-doubao-search-sign.byteimg.com/labis/2a260065d32be5aa7816927aeef0f080~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=AF74%2BZGlYqTaM3ifP5AAjBwqs%2Bw%3D" alt="粮油副食" class="h-full w-full object-cover">
+                        </div>
+                        <p class="font-medium text-gray-700">粮油副食</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-12 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8 animate-on-scroll">
+                <h2 class="text-2xl font-bold text-gray-800">热卖产品</h2>
+                <a href="#" class="text-primary-color hover:underline flex items-center">
+                    查看更多 <i data-lucide="chevron-right" class="ml-1" size="16"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="product-card bg-white shadow-md animate-on-scroll" style="transition-delay: 0.1s;">
+                    <div class="relative">
+                        <img src="https://p26-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/31eb2a8c935a4d67a35bd5eb3a1c367e~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=c%2FXfRR0OWrwY%2FseVfD5upJtFTRY%3D" alt="杨梅" class="w-full h-48 object-cover">
+                        <span class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">新鲜</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-1">
+                            <div class="flex text-accent-color">
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(120)</span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1 text-gray-800">新鲜杨梅</h3>
+                        <p class="text-gray-600 text-sm mb-3 line-clamp-2">来自浙江余姚的新鲜杨梅，个大味甜，汁水充足。</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-bold text-lg">¥ 39.9<span class="text-xs font-normal text-gray-500">/斤</span></span>
+                            <button class="btn-primary text-white text-sm py-1.5 px-4 rounded-full flex items-center">
+                                <i data-lucide="shopping-cart" size="16" class="mr-1"></i> 加入
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-card bg-white shadow-md animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="relative">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-qvj2lq49k0/ae4b656d06fb4318ab58b2bf8e433884~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=Ix4JoTMEBn%2FZOxE0atXzOZEZrPY%3D" alt="橘子" class="w-full h-48 object-cover">
+                        <span class="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">有机</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-1">
+                            <div class="flex text-accent-color">
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star-half" fill="currentColor" size="14"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(98)</span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1 text-gray-800">湖南蜜橘</h3>
+                        <p class="text-gray-600 text-sm mb-3 line-clamp-2">湖南永州特产，甜度高，汁水足，口感极佳。</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-bold text-lg">¥ 12.9<span class="text-xs font-normal text-gray-500">/斤</span></span>
+                            <button class="btn-primary text-white text-sm py-1.5 px-4 rounded-full flex items-center">
+                                <i data-lucide="shopping-cart" size="16" class="mr-1"></i> 加入
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="product-card bg-white shadow-md animate-on-scroll" style="transition-delay: 0.3s;">
+                    <div class="relative">
+                        <img src="https://p11-doubao-search-sign.byteimg.com/labis/85294dfb83c3cff9663d26102116a424~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=%2B79SaDOjZXSNZn9L4Fg%2BKh3B1%2B0%3D" alt="脆红李" class="w-full h-48 object-cover">
+                        <span class="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">热卖</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-1">
+                            <div class="flex text-accent-color">
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" size="14"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(75)</span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1 text-gray-800">四川脆红李</h3>
+                        <p class="text-gray-600 text-sm mb-3 line-clamp-2">四川特产，脆甜可口，营养丰富，老少皆宜。</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-bold text-lg">¥ 19.9<span class="text-xs font-normal text-gray-500">/斤</span></span>
+                            <button class="btn-primary text-white text-sm py-1.5 px-4 rounded-full flex items-center">
+                                <i data-lucide="shopping-cart" size="16" class="mr-1"></i> 加入
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="product-card bg-white shadow-md animate-on-scroll" style="transition-delay: 0.4s;">
+                    <div class="relative">
+                        <img src="https://p3-doubao-search-sign.byteimg.com/labis/2a448004b4355eba638dfbdc218b51db~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=DymOcbsqYBnfON4ZTvUtJ8BAq7E%3D" alt="有机蔬菜" class="w-full h-48 object-cover">
+                        <span class="absolute top-2 left-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded-full">特惠</span>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center mb-1">
+                            <div class="flex text-accent-color">
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star" fill="currentColor" size="14"></i>
+                                <i data-lucide="star-half" fill="currentColor" size="14"></i>
+                            </div>
+                            <span class="text-gray-500 text-xs ml-1">(110)</span>
+                        </div>
+                        <h3 class="font-bold text-lg mb-1 text-gray-800">有机蔬菜套装</h3>
+                        <p class="text-gray-600 text-sm mb-3 line-clamp-2">当季新鲜有机蔬菜，无农药残留，健康营养。</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-bold text-lg">¥ 29.9<span class="text-xs font-normal text-gray-500">/份</span></span>
+                            <button class="btn-primary text-white text-sm py-1.5 px-4 rounded-full flex items-center">
+                                <i data-lucide="shopping-cart" size="16" class="mr-1"></i> 加入
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="rounded-xl overflow-hidden shadow-lg relative animate-on-scroll">
+                <img src="https://p3-doubao-search-sign.byteimg.com/labis/ed65c04f0fee32567e934d443feeda30~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=ITA%2BRL5jZiKz3McZpt3yIH9OiWk%3D" alt="乡村风景" class="w-full h-64 object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent flex items-center">
+                    <div class="ml-12 text-white max-w-lg">
+                        <h3 class="text-3xl font-bold mb-4">来自大山的馈赠</h3>
+                        <p class="mb-6">探索更多来自偏远山区的优质农产品，助力乡村振兴。</p>
+                        <a href="#" class="bg-white text-primary-color font-bold py-2 px-6 rounded-full hover:bg-gray-100 transition">立即探索</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Farmer Stories -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8 animate-on-scroll">
+                <h2 class="text-2xl font-bold text-gray-800">农户故事</h2>
+                <a href="#" class="text-primary-color hover:underline flex items-center">
+                    查看更多 <i data-lucide="chevron-right" class="ml-1" size="16"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Story 1 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition animate-on-scroll" style="transition-delay: 0.1s;">
+                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/fb72846983635d793e098cc548a8a5c2~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=J%2FfKdFrAUT3YUhUBSSssjqOu6xY%3D" alt="农户故事" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2 text-gray-800">老张的有机稻田</h3>
+                        <p class="text-gray-600 text-sm line-clamp-3">老张在山里种了一辈子水稻，坚持不用农药和化肥。如今，通过'乡见'平台，他的有机大米深受城市消费者的喜爱。</p>
+                        <a href="#" class="text-primary-color hover:underline text-sm mt-4 inline-block">阅读全文</a>
+                    </div>
+                </div>
+                <!-- Story 2 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition animate-on-scroll" style="transition-delay: 0.2s;">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/ff5a7be59b463e6c37f10f18324b794f~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=vXYDAdTTPrRC8%2BOWlWfNMxXjPLo%3D" alt="农户故事" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2 text-gray-800">李姐的水果园</h3>
+                        <p class="text-gray-600 text-sm line-clamp-3">李姐的水果园里，种满了各种各样的水果。她精心照料每一棵果树，只为给大家带来最甜美的果实。</p>
+                        <a href="#" class="text-primary-color hover:underline text-sm mt-4 inline-block">阅读全文</a>
+                    </div>
+                </div>
+                <!-- Story 3 -->
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition animate-on-scroll" style="transition-delay: 0.3s;">
+                    <img src="https://p26-doubao-search-sign.byteimg.com/labis/faa0d5f50bc49b1f300d700c7f64bb45~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=JqvRIpj8o01NQbAFmv0REXFLsUk%3D" alt="农户故事" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2 text-gray-800">小王的创业梦</h3>
+                        <p class="text-gray-600 text-sm line-clamp-3">大学毕业后，小王选择回到家乡创业。他利用'乡见'平台，将家乡的特色农产品销往全国各地。</p>
+                        <a href="#" class="text-primary-color hover:underline text-sm mt-4 inline-block">阅读全文</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-green text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i data-lucide="leaf" class="mr-2"></i> 乡见
+                    </h3>
+                    <p class="text-gray-300">连接城乡，让优质农产品走进千家万户。</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">首页</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">关于我们</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">联系我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">帮助中心</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">购物指南</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">支付方式</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition">配送方式</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">关注我们</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i data-lucide="twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition"><i data-lucide="instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 乡见助农平台. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

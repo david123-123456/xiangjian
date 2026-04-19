@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乡见 - 连接城乡，助力农业</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.544.0/dist/umd/lucide.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --accent-color: #FFC107;
+            --dark-green: #388E3C;
+            --light-green: #E8F5E9;
+        }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://p26-doubao-search-sign.byteimg.com/labis/fb72846983635d793e098cc548a8a5c2~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=J%2FfKdFrAUT3YUhUBSSssjqOu6xY%3D') center/cover no-repeat;
+            height: 100vh;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        .feature-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Hero Section -->
+    <section class="hero-section flex flex-col items-center justify-center text-white">
+        <div class="container mx-auto text-center px-4">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">乡见</h1>
+            <p class="text-xl md:text-2xl mb-8">连接城乡，让优质农产品走进千家万户</p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="client.html" class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg">我是消费者</a>
+                <a href="farmer.html" class="btn-secondary text-white font-bold py-3 px-8 rounded-full text-lg">我是农户</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl md:text-4xl font-bold text-center mb-16">平台特色</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card bg-light-green rounded-lg p-8 text-center">
+                    <i data-lucide="leaf" class="mx-auto text-primary-color mb-4" size="48"></i>
+                    <h3 class="text-xl font-bold mb-2">新鲜直供</h3>
+                    <p class="text-gray-600">从田间到餐桌，确保您吃到最新鲜的农产品。</p>
+                </div>
+                <div class="feature-card bg-light-green rounded-lg p-8 text-center">
+                    <i data-lucide="video" class="mx-auto text-primary-color mb-4" size="48"></i>
+                    <h3 class="text-xl font-bold mb-2">短剧助农</h3>
+                    <p class="text-gray-600">通过生动有趣的短剧，了解农产品背后的故事。</p>
+                </div>
+                <div class="feature-card bg-light-green rounded-lg p-8 text-center">
+                    <i data-lucide="users" class="mx-auto text-primary-color mb-4" size="48"></i>
+                    <h3 class="text-xl font-bold mb-2">城乡互联</h3>
+                    <p class="text-gray-600">搭建城乡桥梁，促进资源互通与文化交流。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-light-green">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/labis/ff5a7be59b463e6c37f10f18324b794f~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792125887&x-signature=vXYDAdTTPrRC8%2BOWlWfNMxXjPLo%3D" alt="乡村风景" class="rounded-lg shadow-lg">
+                </div>
+                <div class="md:w-1/2">
+                    <h2 class="section-title text-3xl md:text-4xl font-bold mb-6">关于乡见</h2>
+                    <p class="text-gray-700 mb-4">“乡见”是一个致力于连接城乡的助农平台。我们旨在通过创新的方式，帮助农户将优质的农产品推向更广阔的市场，同时也让城市消费者能够便捷地获取到新鲜、健康的农产品。</p>
+                    <p class="text-gray-700 mb-4">我们相信，每一份农产品都承载着农户的辛勤汗水和对土地的热爱。通过“乡见”，我们希望能够将这份情感传递给每一位消费者。</p>
+                    <div class="flex gap-4 mt-8">
+                        <a href="client.html" class="btn-primary text-white font-bold py-2 px-6 rounded-full">立即购买</a>
+                        <a href="farmer.html" class="border-2 border-primary-color text-primary-color font-bold py-2 px-6 rounded-full hover:bg-primary-color hover:text-white transition">了解更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-green text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 乡见助农平台. All Rights Reserved.</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <a href="#" class="hover:text-accent-color"><i data-lucide="facebook"></i></a>
+                <a href="#" class="hover:text-accent-color"><i data-lucide="twitter"></i></a>
+                <a href="#" class="hover:text-accent-color"><i data-lucide="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
