@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乡见 - 农户端</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.544.0/dist/umd/lucide.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #8BC34A;
+            --accent-color: #FFC107;
+            --dark-green: #388E3C;
+            --light-green: #E8F5E9;
+        }
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            scroll-behavior: smooth;
+            background: url('https://p11-doubao-search-sign.byteimg.com/labis/55324ecd3c937c94ea333d9e4cf627db~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792130152&x-signature=9Ndf55GwZGBVms3ueUZ2Upwu9OI%3D') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .navbar {
+            background: linear-gradient(90deg, var(--dark-green), var(--primary-color));
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--dark-green);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .template-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .template-card.active {
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        .hero-section {
+            background: linear-gradient(135deg, rgba(240, 253, 244, 0.9), rgba(220, 252, 231, 0.9));
+            backdrop-filter: blur(10px);
+        }
+        .form-section {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .result-section {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .template-image {
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="navbar text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <a href="index.html" class="text-2xl font-bold flex items-center">
+                    <i data-lucide="leaf" class="mr-2"></i> 乡见
+                </a>
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#" class="hover:text-accent-color transition flex items-center">
+                        <i data-lucide="layout-dashboard" class="mr-1"></i> 仪表盘
+                    </a>
+                    <a href="#" class="hover:text-accent-color transition flex items-center">
+                        <i data-lucide="package" class="mr-1"></i> 我的产品
+                    </a>
+                    <a href="#" class="hover:text-accent-color transition flex items-center">
+                        <i data-lucide="user" class="mr-1"></i> 个人中心
+                    </a>
+                </div>
+                <button class="md:hidden text-white focus:outline-none">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4 animate-on-scroll">短剧助农，增产增收</h1>
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto animate-on-scroll" style="transition-delay: 0.2s;">选择模板，快速生成吸引人的农产品短剧，让您的产品更具吸引力！</p>
+        </div>
+    </section>
+
+    <!-- Template Selection -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold mb-12 text-center text-white animate-on-scroll">选择短剧模板</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Story Template -->
+                <div id="story-template" class="template-card bg-white shadow-lg animate-on-scroll" style="transition-delay: 0.1s;">
+                    <img src="https://p26-doubao-search-sign.byteimg.com/ecom-shop-material/png_m_a51751cc7d92269ca73737b7d0a2a2b7_sx_676793_www800-800~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792127789&x-signature=raXTrH0VoqO%2BfL2qE71o1PBYhzo%3D" alt="故事版" class="template-image w-full">
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold text-xl mb-2 text-gray-800">故事版</h3>
+                        <p class="text-gray-600">讲述农产品背后的感人故事，传递品牌温度，引发情感共鸣。</p>
+                    </div>
+                </div>
+                <!-- Product Template -->
+                <div id="product-template" class="template-card bg-white shadow-lg animate-on-scroll" style="transition-delay: 0.3s;">
+                    <img src="https://p3-doubao-search-sign.byteimg.com/labis/9be12fd9133d7daac92b8995e61ebbae~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792127789&x-signature=dIaRnlYT0odz6ZaaFnJSQtPAx8c%3D" alt="带货版" class="template-image w-full">
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold text-xl mb-2 text-gray-800">带货版</h3>
+                        <p class="text-gray-600">直接展示产品优势，促进转化和销售，适合直播推广。</p>
+                    </div>
+                </div>
+                <!-- Folk Template -->
+                <div id="folk-template" class="template-card bg-white shadow-lg animate-on-scroll" style="transition-delay: 0.5s;">
+                    <img src="https://p11-doubao-search-sign.byteimg.com/tos-cn-i-xv4ileqgde/0d60f6a4201f4818a6957f33c607fcc9~tplv-be4g95zd3a-image.jpeg?lk3s=feb11e32&x-expires=1792127789&x-signature=oUkt6U6vhp%2FAAMwE%2FV3RuLUQlYs%3D" alt="民俗版" class="template-image w-full">
+                    <div class="p-6 text-center">
+                        <h3 class="font-bold text-xl mb-2 text-gray-800">民俗版</h3>
+                        <p class="text-gray-600">结合地方民俗文化，突出产品特色，打造独特品牌记忆。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script Generation Form -->
+    <section class="py-12 form-section">
+        <div class="container mx-auto px-4 max-w-3xl">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-gray-800 animate-on-scroll">生成短剧剧本</h2>
+            <form id="script-form" class="p-8">
+                <div class="mb-6">
+                    <label for="product-name" class="block text-gray-700 font-bold mb-2 text-lg">产品名称</label>
+                    <input type="text" id="product-name" name="product-name" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color text-lg" placeholder="例如：五常大米">
+                </div>
+                <div class="mb-6">
+                    <label for="product-feature" class="block text-gray-700 font-bold mb-2 text-lg">产品特点</label>
+                    <textarea id="product-feature" name="product-feature" rows="4" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color text-lg" placeholder="描述您产品的独特之处..."></textarea>
+                </div>
+                <div class="mb-6">
+                    <label for="additional-info" class="block text-gray-700 font-bold mb-2 text-lg">其他信息</label>
+                    <textarea id="additional-info" name="additional-info" rows="3" class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-color text-lg" placeholder="例如：种植环境、品牌故事、文化背景等..."></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn-primary text-white font-bold py-3 px-10 rounded-full text-lg shadow-lg hover:shadow-xl transition">生成剧本</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Script Result (Initially Hidden) -->
+    <section id="script-result" class="py-12 result-section hidden">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center text-gray-800 animate-on-scroll">您的短剧剧本</h2>
+            <div class="p-8">
+                <div id="result-content" class="prose prose-lg max-w-none"></div>
+                <div class="mt-10 flex justify-center gap-6">
+                    <button id="edit-script" class="border-2 border-primary-color text-primary-color font-bold py-3 px-8 rounded-full text-lg hover:bg-primary-color hover:text-white transition">修改</button>
+                    <button id="generate-video" class="btn-primary text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition">生成短剧</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-green text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 乡见助农平台. All Rights Reserved.</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <a href="#" class="hover:text-accent-color transition"><i data-lucide="facebook"></i></a>
+                <a href="#" class="hover:text-accent-color transition"><i data-lucide="twitter"></i></a>
+                <a href="#" class="hover:text-accent-color transition"><i data-lucide="instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        const templates = {
+            'story-template': {
+                title: '故事版',
+                content: `
+## 《大山里的希望》
+
+**场景1：清晨的山村**  
+*画面：日出时分，群山环绕的小山村，云雾缭绕。*  
+旁白："在远离城市的大山深处，有一个宁静的小山村。这里的人们世代以种植为生。"
+
+**场景2：老农户的背影**  
+*画面：一位皮肤黝黑的老农户，在田间劳作。*  
+旁白："老张是村里的种粮大户，他种的五常大米，颗粒饱满，口感香甜。"
+
+**场景3：丰收的喜悦**  
+*画面：金黄色的稻田，村民们在收割。*  
+老张："我们的大米不打农药，不施化肥，是真正的绿色食品。"
+
+**场景4：包装与运输**  
+*画面：工人在包装大米，快递车出发。*  
+旁白："现在，通过'乡见'平台，老张的大米走出了大山，走进了千家万户。"
+
+**场景5：顾客的笑容**  
+*画面：一家人围坐在一起吃米饭，脸上露出满意的笑容。*  
+旁白："每一粒米，都承载着农户的辛勤和希望。选择'乡见'，选择健康，选择品质。"
+
+**结尾**  
+*画面：'乡见'logo，以及购买链接。*  
+旁白："乡见，连接城乡，让爱传递。"
+                `
+            },
+            'product-template': {
+                title: '带货版',
+                content: `
+## 《五常大米，香飘万家》
+
+**场景1：产品展示**  
+*画面：一袋包装精美的五常大米，镜头特写。*  
+主播："家人们，今天给大家推荐一款超级好吃的五常大米！"
+
+**场景2：煮米过程**  
+*画面：水倒入米中，开始煮米，蒸汽袅袅。*  
+主播："看这米，颗粒饱满，色泽透亮。煮的时候，满屋子都是香味。"
+
+**场景3：品尝环节**  
+*画面：主播盛起一碗米饭，咬了一口，表情享受。*  
+主播："嗯~ 软糯香甜，口感极佳！这就是真正的五常大米！"
+
+**场景4：资质证书**  
+*画面：有机认证证书，绿色食品证书等。*  
+主播："咱们的大米有有机认证，不打农药，不施化肥，老人孩子都能放心吃。"
+
+**场景5：价格与优惠**  
+*画面：商品链接，以及优惠信息。*  
+主播："今天在'乡见'平台下单，原价58元一袋，现在只要39.9元！还包邮！"
+
+**场景6：库存紧张**  
+*画面：工作人员在打包，快递堆积如山。*  
+主播："库存有限，家人们赶紧点击下方链接下单吧！"
+
+**结尾**  
+*画面：'乡见'logo，以及购买链接。*  
+主播："乡见，让优质农产品走进千家万户！"
+                `
+            },
+            'folk-template': {
+                title: '民俗版',
+                content: `
+## 《稻花香里说丰年》
+
+**场景1：传统农耕**  
+*画面：一头牛拉着犁，老农在后面扶着，背景是青山绿水。*  
+旁白："五常，这片神奇的土地，有着上千年的种稻历史。"
+
+**场景2：传统仪式**  
+*画面：村民们在举行开耕仪式，敲锣打鼓，载歌载舞。*  
+旁白："每年春耕，村民们都会举行隆重的开耕仪式，祈求风调雨顺，五谷丰登。"
+
+**场景3：手工收割**  
+*画面：村民们手持镰刀，在稻田里收割。*  
+旁白："我们坚持传统的手工收割方式，最大限度地保留了大米的营养和口感。"
+
+**场景4：打谷场上**  
+*画面：打谷场上，村民们在打谷子，笑声一片。*  
+旁白："打谷场上，稻谷飘香。这是一年中最欢乐的时刻。"
+
+**场景5：传统储存**  
+*画面：稻谷被存入传统的粮仓中。*  
+旁白："收割后的稻谷，我们会放在通风干燥的粮仓里，自然储存。"
+
+**场景6：现代包装**  
+*画面：现代化的包装生产线，包装好的大米。*  
+旁白："现在，我们采用现代化的包装技术，让传统的美味，以更新鲜的方式呈现给大家。"
+
+**结尾**  
+*画面：'乡见'logo，以及购买链接。*  
+旁白："乡见，让传统的味道，走向更远的地方。"
+                `
+            }
+        };
+
+        let selectedTemplate = null;
+
+        document.querySelectorAll('.template-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('.template-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                selectedTemplate = card.id;
+            });
+        });
+
+        document.getElementById('script-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!selectedTemplate) {
+                alert('请先选择一个短剧模板');
+                return;
+            }
+
+            const productName = document.getElementById('product-name').value || '五常大米';
+            const productFeature = document.getElementById('product-feature').value || '颗粒饱满，口感香甜，不打农药，不施化肥';
+            const additionalInfo = document.getElementById('additional-info').value || '';
+
+            let script = templates[selectedTemplate].content;
+            script = script.replace(/五常大米/g, productName);
+            
+            // Convert markdown to HTML
+            const markdownToHtml = (text) => {
+                return text
+                    .replace(/#{2}\s+([^\n]+)/g, '<h2 class="text-2xl font-bold mb-4 text-gray-800">$1</h2>')
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+                    .replace(/\n\n/g, '</p><p>')
+                    .replace(/\n/g, '<br>')
+                    .replace(/^<p>/, '')
+                    .replace(/<\/p>$/, '');
+            };
+
+            document.getElementById('result-content').innerHTML = `<div class="bg-gray-50 p-6 rounded-lg shadow-inner">${markdownToHtml(script)}</div>`;
+            document.getElementById('script-result').classList.remove('hidden');
+            document.getElementById('script-form').closest('section').classList.add('hidden');
+            document.getElementById('script-result').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('edit-script').addEventListener('click', () => {
+            document.getElementById('script-result').classList.add('hidden');
+            document.getElementById('script-form').closest('section').classList.remove('hidden');
+            document.getElementById('script-form').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        document.getElementById('generate-video').addEventListener('click', () => {
+            alert('短剧生成功能正在开发中，敬请期待！');
+        });
+
+    </script>
+</body>
+</html>
